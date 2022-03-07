@@ -1,0 +1,105 @@
+
+public class Solution {
+    private int numerator;
+    private int denominator;
+
+    public Solution(int numerator, int denominator) {
+        this.numerator = numerator;
+        this.denominator = (denominator == 0 ? 1 : denominator);
+    }
+
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public void setNumerator(int numerator) {
+        this.numerator = numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
+    }
+
+    public void setDenominator(int denominator) {
+        this.denominator = denominator == 0 ? this.denominator : denominator;
+    }
+
+    /**
+     * function gcd.
+     */
+    public int gcd(int a, int b) {
+        if (a == 0 || b == 0) {
+            return (a + b);
+        }
+        if (a < 0) {
+            a = a * -1;
+        }
+        if (b < 0) {
+            b = b * -1;
+        }
+        return gcd(b, a % b);
+    }
+
+    /**
+     * function gcd.
+     */
+    public Solution reduce() {
+        int uoc = gcd(this.numerator, this.denominator);
+        this.numerator = this.numerator / uoc;
+        this.denominator = this.denominator / uoc;
+        return new Solution(this.numerator, this.denominator);
+    }
+
+    /**
+     * function add.
+     */
+    public Solution add(Solution b) {
+        this.numerator = this.numerator * b.getDenominator()
+                + b.getNumerator() * this.denominator;
+        this.denominator = this.denominator * b.getDenominator();
+        return this.reduce();
+
+    }
+
+    /**
+     * function subtract.
+     */
+    public Solution subtract(Solution b) {
+        this.numerator = this.numerator * b.getDenominator()
+                - b.getNumerator() * this.denominator;
+        this.denominator = this.denominator * b.getDenominator();
+        return this.reduce();
+    }
+
+    /**
+     * function multiply.
+     */
+    public Solution multiply(Solution b) {
+        this.numerator = this.numerator * b.numerator;
+        this.denominator = this.denominator * b.denominator;
+        return this.reduce();
+    }
+
+    /**
+     * function divide.
+     */
+    public Solution divide(Solution b) {
+        this.numerator = this.numerator * b.denominator;
+        this.denominator = this.denominator * b.numerator;
+        return this.reduce();
+    }
+
+    /**
+     * function equals.
+     */
+    public boolean equals(Object a) {
+        if (a instanceof Solution) {
+            Solution b = (Solution) a;
+            int newNumerator = this.getNumerator() * b.getDenominator()
+                    - b.getNumerator() * this.getDenominator();
+            return newNumerator == 0;
+        }
+        return false;
+    }
+}
+ 
