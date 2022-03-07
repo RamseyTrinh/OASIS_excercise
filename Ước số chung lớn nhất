@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class Solution {
+
+    /** ham ko main.
+     * Trinh Xuan Hoàng
+     */ 
+    public static int gcd(int a, int b) {
+        if (a < 0) {
+            a = a * -1;
+        }
+        if (b < 0) {
+            b = b * -1;
+        }
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+    /** Hammain.
+    * Trinh Xuan Hoang
+     */
+   
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println(gcd(a, b));
+
+    }
+}    
